@@ -30,7 +30,7 @@ namespace Repository.Logic
         {
             ControleAtividadesEntities contexto = new ControleAtividadesEntities();
 
-            _entities = new DbContext(contexto.Database.Connection.ConnectionString);
+            _entities = contexto;
         }
 
         public IQueryable<T> Listar(bool atualizarContexto = false)

@@ -43,57 +43,24 @@ namespace ControleAtividades.Controllers
 
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0)]
-        public ActionResult Index(FormCollection form)
+        public ActionResult Index(tb_usuario usuario)
         {
             try
             {
-                tb_usuario usuario = new tb_usuario();
-                TryUpdateModel(usuario, form);
+                CriarCookie(usuario.email, usuario.senha);
 
-                if (ViewData.ModelState.IsValid)
+                usuario.senha = new Caioff.clCaioff().Criptografar(usuario.senha);
+
+                if (ValidarAcesso(where, repositorio, usuario))
                 {
-                    CriarCookie(usuario.email, usuario.senha);
+                    Mensagem(TipoMensagem.Sucesso, "Bem-vindo, " + usuario.nome
+                        + ". <br /><br /><strong>Biscoito do Sorte</strong><br />" + BiscoitoDaSorte());
 
-                    usuario.senha = new Caioff.clCaioff().Criptografar(usuario.senha);
-
-                    if (ValidarAcesso(where, repositorio, usuario))
-                    {
-                        //EnviarEmail(999888, "controle.caioff.com.br",
-                        //    "<div itemscope itemtype=\"http://schema.org/EmailMessage\">"
-                        //    + "<div itemprop=\"action\" itemscope itemtype=\"http://schema.org/ConfirmAction\">"
-                        //    + "<meta itemprop=\"name\" content=\"Approve Expense\"/>"
-                        //    + "<div itemprop=\"handler\" itemscope itemtype=\"http://schema.org/HttpActionHandler\">"
-                        //    + "<link itemprop=\"url\" href=\"https://myexpenses.com/approve?expenseId=abc123\"/>"
-                        //    + "</div>"
-                        //    + "</div>"
-                        //    + "<meta itemprop=\"description\" content=\"Approval request for John's $10.13 expense for office supplies\"/>"
-                        //    + "</div>"
-                        //    + "<br />"
-                        //    + "<br />"
-                        //    + "Teste A - Caio"
-                        //    );
-
-                        //EnviarEmail(999888, "controle.caioff.com.br",
-                        //    "<div itemscope itemtype=\"http://schema.org/EmailMessage\"><div itemprop=\"action\" itemscope itemtype=\"http://schema.org/ConfirmAction\"><meta itemprop=\"name\" content=\"Approve Expense\"/><div itemprop=\"handler\" itemscope itemtype=\"http://schema.org/HttpActionHandler\"><link itemprop=\"url\" href=\"https://myexpenses.com/approve?expenseId=abc123\"/></div></div><meta itemprop=\"description\" content=\"Approval request for John's $10.13 expense for office supplies\"/></div><head><title>IPVA</title></head><body><div style='text-align: justify; width:570px;'><img src='https://servicos.efazenda.ms.gov.br/templates/templateemail/mailing_sgi_topo.jpg' /><br />teste<br /><br /><i>Atenção: Esse é um e-mail automático, favor não responder.</i><br /><br /><img src='https://servicos.efazenda.ms.gov.br/templates/templateemail/mailing_sgi_rodape.jpg' /></div></body>"
-                        //    );
-
-                        Mensagem(TipoMensagem.Sucesso, "Bem-vindo, " + usuario.nome
-                            + ". <br /><br /><strong>Biscoito do Sorte</strong><br />" + BiscoitoDaSorte());
-
-                        return RedirectToAction("Index", "Atividade");
-                    }
-                    else
-                    {
-                        Mensagem(TipoMensagem.Aviso, "Acesso negado! Informações inválidas, tente novamente.");
-
-                        return RedirectToAction("Index");
-                    }
+                    return RedirectToAction("Index", "Atividade");
                 }
                 else
                 {
-                    DestruirCookie();
-
-                    Mensagem(TipoMensagem.Aviso, "Autenticação negada! Tente novamente.");
+                    Mensagem(TipoMensagem.Aviso, "Acesso negado! Informações inválidas, tente novamente.");
 
                     return RedirectToAction("Index");
                 }

@@ -1,11 +1,10 @@
 namespace Domain.Model
 {
-    using System;
+    using MetaData;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
+    [MetadataType(typeof(ca_usuarioMD))]
     public partial class ca_usuario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]

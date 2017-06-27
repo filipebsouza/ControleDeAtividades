@@ -1,11 +1,9 @@
 namespace Domain.Model
 {
-    using System;
-    using System.Collections.Generic;
+    using MetaData;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
+    [MetadataType(typeof(ca_atividadesPublicadasMD))]
     public partial class ca_atividadesPublicadas
     {
         public int id { get; set; }

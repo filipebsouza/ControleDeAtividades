@@ -170,8 +170,8 @@ namespace Repository.Controllers
                 Expression<Func<ca_usuario, bool>> where = i => i.id == idUsuario;
                 ca_usuario usuario = repUsuario.Obter(where);
 
-                var fromAddress = new MailAddress("aventuraderpg@gmail.com", "Controle de Atividades");
-                var fromPassword = "_c4v3rn4";
+                var fromAddress = new MailAddress("endereço de email", "Controle de Atividades");
+                var fromPassword = "senha do email";
                 var toAddress = new MailAddress(usuario.email, usuario.nome);
 
                 MailMessage mail = new MailMessage();
@@ -183,7 +183,7 @@ namespace Repository.Controllers
                 mail.Subject = assunto;
                 mail.Body = texto;
 
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                SmtpClient smtp = new SmtpClient("endereco smtp", 587);
                 smtp.UseDefaultCredentials = true;
                 smtp.EnableSsl = true;
                 smtp.Credentials = new NetworkCredential(fromAddress.User, fromPassword);
@@ -255,7 +255,7 @@ namespace Repository.Controllers
             }
         }
 
-        private string apiKey = "7ohpeWEkdOKshCfVDROjXneu73pbvJ1V";
+        private string apiKey = "chave da api do pushBullet";
 
         public void PushLink(string title, string body, string url)
         {
