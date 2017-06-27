@@ -1,0 +1,56 @@
+﻿@model Tuple<WebGrid, Domain.Model.ViewModel.PaginacaoVM>
+@{
+    var numeroDePaginasPorView = Model.Item2.PageLimit;
+    var iniciaEm = 1;
+    var terminaEm = numeroDePaginasPorView;
+    var totalDePaginas = Model.Item2.TotalPages;
+    var paginaAtual = Model.Item2.PageIndex == 0 ? 1 : Model.Item2.PageIndex;
+    var html = "";
+
+    if (totalDePaginas > numeroDePaginasPorView)
+    {
+        if (paginaAtual + numeroDePaginasPorView - 1 > totalDePaginas)
+        {
+            iniciaEm = totalDePaginas - numeroDePaginasPorView;
+            terminaEm = totalDePaginas;
+        }
+        else
+        {
+            iniciaEm = paginaAtual;
+            terminaEm = paginaAtual + numeroDePaginasPorView - 1;
+        }
+    }
+    else
+    {
+        terminaEm = totalDePaginas;
+    }
+
+    if (paginaAtual > 1)
+    {
+        html += "<li><a href='" + Url.Content("~/") + ViewBag.Controller + "?page=1'>Primeiro</a></li>";
+        html += "<li><a href='" + Url.Content("~/") + ViewBag.Controller + "?page=" + (paginaAtual - 1) + "'>Anterior</a></li>";
+    }
+
+    for (int i = iniciaEm; i <= terminaEm; i++)
+    {
+        if (i != paginaAtual)
+        {
+            html += "<li><a href='" + Url.Content("~/") + ViewBag.Controller + "?page=" + (i) + "'>" + i + "</a></li>";
+        }
+        else
+        {
+            html += "<li class='disabled'><span>" + i + "</span></li>";
+        }
+    }
+
+    if (paginaAtual < totalDePaginas)
+    {
+        html += "<li><a href='" + Url.Content("~/") + ViewBag.Controller + "?page=" + (paginaAtual + 1) + "'>Próximo</a></li>";
+        html += "<li><a href='" + Url.Content("~/") + ViewBag.Controller + "?page=" + totalDePaginas + "'>Último</a></li>";
+    }
+
+}
+<div class="span8 pagination pagination-large">
+    <ul>@Html.Raw(html)</ul>
+</div>
+@Scripts.Render("~/Scripts/Views/Shared/Paginacao.js")

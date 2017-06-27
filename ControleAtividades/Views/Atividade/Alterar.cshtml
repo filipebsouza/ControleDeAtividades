@@ -1,0 +1,55 @@
+﻿@model Domain.Model.ca_atividade
+@{
+    ViewBag.Title = "Alterar";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+@Html.Partial("PickDate")
+@Html.ValidationSummary(true)
+<fieldset>
+    <legend>Incluir Atividade</legend>
+    @Html.HiddenFor(model => model.id)
+    <div class="editor-label">
+        @Html.LabelFor(model => model.id_usuario)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("id_usuario")
+        @Html.ValidationMessageFor(model => model.id_usuario)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.descricao)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(model => model.descricao, new { @style = "width: 600px; height: 100px;" })
+        <br />
+        @Html.ValidationMessageFor(model => model.descricao)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.sistema)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.sistema)
+        @Html.ValidationMessageFor(model => model.sistema)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.prioridade)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.prioridade)
+        @Html.ValidationMessageFor(model => model.prioridade)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.dt_inicio)
+    </div>
+    <div class="editor-field">
+        @Html.TextBox("dt_inicio", Model.dt_inicio.HasValue ? Model.dt_inicio.Value.ToShortDateString() : "")
+        @Html.ValidationMessageFor(model => model.dt_inicio)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.dt_fim)
+    </div>
+    <div class="editor-field">
+        @Html.TextBox("dt_fim", Model.dt_fim.HasValue ? Model.dt_fim.Value.ToShortDateString() : "")
+        @Html.ValidationMessageFor(model => model.dt_fim)
+    </div>
+</fieldset>
+@Scripts.Render("~/Scripts/Views/Atividade/Alterar.js")

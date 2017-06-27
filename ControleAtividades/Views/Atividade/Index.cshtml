@@ -1,0 +1,89 @@
+﻿@model Domain.Model.ViewModel.GridVM
+@using Domain.Model.ViewModel
+@{
+    ViewBag.Title = "Atividades";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+<h2>
+    Atividades</h2>
+<div class="span9">
+    @if (ViewBag.filtro != null)
+    {
+        <input type="text" id="filtro" name="filtro" value="@ViewBag.filtro" autofocus />
+    }
+    else
+    {
+        <input type="text" id="filtro" name="filtro" autofocus />
+    }
+    <span style='padding-right: 3px;'><a href='#' class='btn btn-primary' onclick='document.forms[0].submit();'>
+        <i class='icon-white icon-search'></i></a></span>
+</div>
+@{ 
+    <div class="span9">
+        <b>Atividades por prioridade</b>
+        <br />
+        @if (ViewBag.RelatorioDeAtividadesPorPrioridade != null)
+        {
+            foreach (var item in ViewBag.RelatorioDeAtividadesPorPrioridade
+                as List<string>)
+            {
+            @Html.Raw(item)<span>&nbsp;</span>
+            }
+        }
+    </div>
+    
+    <div class="span8">
+        &nbsp;</div>
+    
+    <div class="span8">
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        Relatório de Atividades </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        @if (ViewBag.RelatorioDeAtividades != null)
+                        {
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            Qtde/Total
+                                        </th>
+                                        <th>
+                                            Percentual
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.RelatorioDeAtividades as List<ItemRelatorioAtividades>)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @(item.Descricao)
+                                            </td>
+                                            <td>
+                                                @(item.Qtde)
+                                            </td>
+                                            <td>
+                                                @(item.Percentual)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("Grid", Model)
+}
+@Html.Partial("ModalExclusao")
+@Scripts.Render("~/Scripts/Views/Atividade/Index.js")

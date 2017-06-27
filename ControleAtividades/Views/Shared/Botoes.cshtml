@@ -1,0 +1,32 @@
+﻿<div id="botoes" style="margin-top: 150px;">
+    @{
+        if (!string.IsNullOrEmpty(ViewBag.Submit) && !string.IsNullOrEmpty(ViewBag.BotaoSubmit))
+        {
+        <input type="submit" value="@ViewBag.Submit" class="btn btn-@ViewBag.BotaoSubmit btn-large" />
+        <br />
+        <br />
+        }
+        if (!string.IsNullOrEmpty(ViewBag.Incluir))
+        {
+        @Html.ActionLink(ViewBag.Incluir as string, "Incluir", null, new { @class = "btn btn-primary btn-large" })
+        <br />
+        <br />
+        }
+        if (!string.IsNullOrEmpty(ViewBag.Alterar))
+        {
+        @Html.ActionLink(ViewBag.Alterar as string, "Alterar", null, new { @class = "btn btn-info btn-large" })
+        <br />
+        <br />
+        }
+        if (!string.IsNullOrEmpty(ViewBag.Excluir))
+        {
+        @Html.ActionLink(ViewBag.Excluir as string, "Excluir", null, new { @class = "btn btn-danger btn-large" })
+        <br />
+        <br />
+        }
+        if (!string.IsNullOrEmpty(ViewBag.Voltar))
+        {
+        @Html.ActionLink(ViewBag.Voltar as string, "Index", null, new { @class = "btn btn-inverse btn-large" })
+        }
+    }
+</div>

@@ -1,0 +1,55 @@
+﻿@model Domain.Model.ViewModel.GridVM
+@using System.ComponentModel
+@using Domain.Model.ViewModel
+@{
+    WebGrid grid = new WebGrid(Model.Lista, ajaxUpdateContainerId: "grid", rowsPerPage: Model.PageSize);
+    List<WebGridColumn> cols = new List<WebGridColumn>();
+
+    var props = Model.Tipo.GetProperties().Where(p => !p.PropertyType.FullName.Contains("EntityReference")
+        && !p.PropertyType.FullName.Contains("EntityCollection")
+        && !p.PropertyType.FullName.Contains("EntityState")
+        && !p.PropertyType.FullName.Contains("EntityKey"));
+
+    foreach (var prop in props)
+    {
+        var nomeExibir = "";
+        var name = prop.Name;
+
+        if (prop.GetCustomAttributes(true).Count() > 0 && prop.GetCustomAttributes(true).ElementAt(0) is DisplayNameAttribute)
+        {
+            nomeExibir = ((DisplayNameAttribute)(prop.GetCustomAttributes(true).ElementAt(0))).DisplayName;
+        }
+        else
+        {
+            nomeExibir = prop.Name;
+        }
+
+        cols.Add(grid.Column(
+            name,
+            nomeExibir,
+            format: i => Html.Raw(i[name])
+            ));
+    }
+
+    PaginacaoVM paginacao = new PaginacaoVM();
+
+    paginacao.PageIndex = Model.PageIndex;
+    paginacao.TotalPages = Model.TotalPages;
+    paginacao.PageLimit = Model.PageLimit;
+
+    Tuple<WebGrid, PaginacaoVM> parametro = new Tuple<WebGrid, PaginacaoVM>(grid, paginacao);
+    
+@*@Html.Partial("Paginacao", parametro);*@
+                                    
+    <div id="grid">@grid.GetHtml(
+              tableStyle: "table", // table-condensed
+                    footerStyle: "paginacao_hide",
+                    columns: cols,
+                    mode: WebGridPagerModes.All,
+                    numericLinksCount: 5
+                    )
+    </div>
+    
+    
+    @Html.Partial("Paginacao", parametro);
+}

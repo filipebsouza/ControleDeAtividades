@@ -1,0 +1,38 @@
+﻿<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel" style="display: block;
+    position: static; width: 250px; margin-top: 5%;">
+    <li class="dropdown-submenu">
+        @Html.ActionLink("Atividade", "Index", "Atividade")
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Incluir", "Incluir", "Atividade")
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown-submenu">
+        @Html.ActionLink("Usuario", "Index", "Usuario")
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Incluir", "Incluir", "Usuario")
+            </li>
+        </ul>
+    </li>
+    <li class="dropdown-submenu">
+        @Html.ActionLink("Publicação", "Index", "Publicacao")
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("Incluir", "Incluir", "Publicacao")
+            </li>
+        </ul>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-submenu">
+        @Html.ActionLink("Sair", null)
+        <ul class="dropdown-menu">
+            <li>
+                @Html.ActionLink("SIM!", "Sair", "Seguranca")
+            </li>
+        </ul>
+    </li>
+</ul>
+<br />
+@Html.Partial("Botoes")

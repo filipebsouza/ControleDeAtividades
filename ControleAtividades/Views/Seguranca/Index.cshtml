@@ -1,0 +1,52 @@
+﻿@model Domain.Model.tb_usuario
+@{
+    ViewBag.Title = "Autenticação";
+    Layout = "~/Views/Shared/Layout_Seguranca.cshtml";
+}
+@using (Html.BeginForm("Index", "Seguranca", FormMethod.Post, new
+{
+    @class = "form-signin",
+    @role = "form",
+    @style = "margin-top: -3em;"
+}))
+{
+    string imagem = @Url.Content("~/Content/img/Home/" + ViewBag.ImagemLogin + ".jpg");
+    
+    <style type='text/css'>
+        #background
+        {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            z-index: -1; /* Ensure div tag stays behind content; -999 might work, too. */
+        }
+        
+        .stretch
+        {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+    <div id="background">
+        <img src="@imagem" class="stretch" alt="" />
+    </div>
+    
+    <center>
+        @*<h2 class="form-signin-heading">
+            Protegido contra Largartixas</h2>*@
+        @Html.ValidationSummary(true)
+        @Html.TextBoxFor(model => model.email, new { @autofocus = "autofocus" })
+        @Html.ValidationMessageFor(model => model.email)
+        <div style="margin-top: -1.5em;">
+            &nbsp;</div>
+        @Html.PasswordFor(model => model.senha, new { })
+        @Html.ValidationMessageFor(model => model.senha)
+        <button type="submit" id="autenticar" name="autenticar" class="btn btn-lg btn-primary btn-block"
+            style="width: 220px">
+            Autenticar
+        </button>
+    </center>
+}

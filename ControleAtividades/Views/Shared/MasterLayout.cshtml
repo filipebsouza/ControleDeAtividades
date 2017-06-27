@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap-responsive.min.css")
+    @Scripts.Render("~/Scripts/jQuery/jquery-1.8.2.min.js")
+    @Scripts.Render("~/Scripts/bootstrap/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/Views/Shared/FuncoesLayout.js")
+    @Scripts.Render("~/Scripts/util/Funcoes.js")
+    <script type="text/javascript">
+        var content = '@Url.Content("~/")';
+        var controller = '@ViewBag.Controller' + '/';
+    </script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="result">
+        @{
+            if (TempData["Sucesso"] != null)
+            {
+            <div class='alert alert-success'>
+                @Html.Raw(TempData["Sucesso"])
+            </div>
+            }
+            else if (TempData["Aviso"] != null)
+            {
+            <div class='alert'>
+                @Html.Raw(TempData["Aviso"])
+            </div>
+            }
+            else if (TempData["Erro"] != null)
+            {
+            <div class='alert alert-error'>
+                @Html.Raw(TempData["Erro"])
+            </div>
+            }
+        }
+    </div>
+    @RenderBody()
+</body>
+</html>

@@ -1,0 +1,60 @@
+﻿@model Domain.Model.ca_publicacao
+@{
+    ViewBag.Title = "Alterar";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+@Html.Partial("PickDate")
+<h2>
+    Alterar Publicação</h2>
+@Html.ValidationSummary(true)
+<fieldset>
+    <legend>Publicacao</legend>
+    @Html.HiddenFor(model => model.id)
+    <div class="editor-label">
+        @Html.LabelFor(model => model.id_usuario)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("id_usuario")
+        @Html.ValidationMessageFor(model => model.id_usuario)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.sistema)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.sistema)
+        @Html.ValidationMessageFor(model => model.sistema)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.dt_publicacao)
+    </div>
+    <div class="editor-field">
+        @Html.TextBox("dt_publicacao", Model.dt_publicacao.HasValue ? Model.dt_publicacao.Value.ToShortDateString() : "")
+        @Html.ValidationMessageFor(model => model.dt_publicacao)
+    </div>
+    <div class="editor-label">
+        Atividades
+    </div>
+    <div class="editor-field">
+        <ul style="list-style: none;">
+            @foreach (var item in ViewBag.atividades)
+            {
+                bool check = false;
+
+                foreach (var ap in ViewBag.aps)
+                {
+                    if (item.id == ap.id_atividade)
+                    {
+                        check = true;
+
+                        break;
+                    }
+                }
+
+                string id = "Atividade_" + item.id;
+                <li style="cursor: pointer; margin-bottom: 20px;">
+                    <label>@Html.CheckBox(id, check) <strong>@item.prioridade</strong> - @Html.Raw(item.descricao)</label></li>
+            }
+        </ul>
+    </div>
+</fieldset>
+@Scripts.Render("~/Scripts/Views/Publicacao/Alterar.js")

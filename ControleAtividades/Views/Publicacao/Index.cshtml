@@ -1,0 +1,15 @@
+﻿@model Domain.Model.ViewModel.GridVM
+@using Domain.Model.ViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+<h2>
+    Publicações</h2>
+<input type="text" id="filtro" name="filtro" />
+<input type="submit" id="consultar" name="consultar" value="Consultar" class="btn btn-primary btn-lg" />
+@{ 
+    @Html.Partial("Grid", Model)
+}
+@Html.Partial("ModalExclusao")
+@Scripts.Render("~/Scripts/Views/Publicacao/Index.js")

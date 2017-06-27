@@ -1,0 +1,49 @@
+﻿@model object
+@{
+    ViewBag.Title = "Página não encontrada";
+}
+@using (Html.BeginForm("Erro", "Seguranca", FormMethod.Get))
+{
+    string imagem = @Url.Content("~/Content/img/" + Model + ".jpg");
+    string color = "#FFFFFF";
+
+    <style type='text/css'>
+        body
+        {
+            color: @(color);
+            background-image: url(@(imagem));
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-color: Black;
+            font-family:Helvetica;
+        }
+        h1{
+            font-size: 120px;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+        a
+        {
+            color: @(color);
+        }
+        #erro{
+            margin-left: 1em;
+        }
+        #rodape
+        {
+            margin-left: 1em;
+            padding: 8px 35px 8px 14px;
+            margin-bottom: 20px;
+            position: absolute;
+            bottom: 0;
+            height: 35px;
+        }
+    </style>
+    <div id="erro">
+        <h1>
+            404</h1>
+    </div>
+
+    <div id="rodape">
+    @Html.Raw(ViewBag.Frase)</div>
+}

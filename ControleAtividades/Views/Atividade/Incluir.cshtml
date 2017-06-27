@@ -1,0 +1,54 @@
+﻿@model Domain.Model.ca_atividade
+@{
+    ViewBag.Title = "Incluir";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+@Html.Partial("PickDate")
+@Html.ValidationSummary(true)
+<fieldset>
+    <legend>Incluir Atividade</legend>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.id_usuario)
+    </div>
+    <div class="editor-field">
+        @Html.DropDownList("id_usuario")
+        @Html.ValidationMessageFor(model => model.id_usuario)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.descricao)
+    </div>
+    <div class="editor-field">
+        @Html.TextAreaFor(model => model.descricao, new { @style = "width: 600px; height: 100px;" })
+        <br />
+        @Html.ValidationMessageFor(model => model.descricao)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.sistema)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.sistema)
+        @Html.ValidationMessageFor(model => model.sistema)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.prioridade)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.prioridade)
+        @Html.ValidationMessageFor(model => model.prioridade)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.dt_inicio)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.dt_inicio)
+        @Html.ValidationMessageFor(model => model.dt_inicio)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(model => model.dt_fim)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.dt_fim)
+        @Html.ValidationMessageFor(model => model.dt_fim)
+    </div>
+</fieldset>
+@Scripts.Render("~/Scripts/Views/Atividade/Incluir.js")

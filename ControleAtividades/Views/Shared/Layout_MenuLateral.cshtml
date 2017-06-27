@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/MasterLayout.cshtml";
+}
+@Styles.Render("~/Content/Views/Shared/Layout_MenuLateral.css")
+<div class="container-fluid">
+    <div class="row-fluid">
+        @using (Html.BeginForm())
+        {
+            <div id="menuLateral" class="span3" style="float: left; position: fixed;">
+                @Html.Partial("MenuLateral")
+            </div>
+            <div id="conteudoPagina" class="span8 offset3">
+                @RenderBody()
+            </div>
+        }
+    </div>
+</div>
+<div id="footer">
+    <li>
+        <ul>
+            <h5>
+                Controle de Atividades - Versão 2.0</h5>
+        </ul>
+        <ul>
+            Desenvolvido por: caioff e filipebsouza
+        </ul>
+        <ul>
+            2013 - 2014
+        </ul>
+    </li>
+</div>

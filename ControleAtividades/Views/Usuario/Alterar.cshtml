@@ -1,0 +1,34 @@
+﻿@model Domain.Model.ca_usuario
+@{
+    ViewBag.Title = "Alterar";
+    Layout = "~/Views/Shared/Layout_MenuLateral.cshtml";
+}
+<h2>
+    Alterar Usuário</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Usuario</legend>
+        @Html.HiddenFor(model => model.id)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.nome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.nome)
+            @Html.ValidationMessageFor(model => model.nome)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+        <p>
+            <input type="submit" value="Alterar" class="btn btn-warning" />
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-inverse" })
+        </p>
+    </fieldset>
+}
